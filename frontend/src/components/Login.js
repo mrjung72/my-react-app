@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/auth/login", { email, password });
-      alert("로그인 성공!!!!!");
+      alert("로그인 성공!");
       localStorage.setItem("token", response.data.token);
 
        // 🔹 로그인 성공 후 회원정보 페이지로 이동
