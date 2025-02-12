@@ -7,6 +7,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  console.log("Login.js email=", email);
+  console.log("Login.js password=", password);
+
   const navigate = useNavigate(); // 🔹 useNavigate() 추가
   
   const handleLogin = async (e) => {
@@ -29,8 +32,8 @@ const Login = () => {
       <h2>로그인</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required /><br/>
-        <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        이메일 : <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required /><br/>
+        비밀번호 : <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">로그인</button>
       </form>
     </div>
