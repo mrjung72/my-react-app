@@ -38,4 +38,18 @@ router.post("/login", async (req, res) => {
   }
 });
 
+const authMiddleware = require("../middleware/auth");
+
+// 회원 정보 조회 API (로그인한 사용자만 접근 가능)
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password"); // 비밀번호 제외
+    if (!user) return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "회원 정보 불러오기 실패", error });
+  }
+});
+
 module.exports = router;
