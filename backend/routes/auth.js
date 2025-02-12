@@ -55,4 +55,18 @@ router.get("/profile", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/users", authMiddleware, async (req, res) => {
+  try {
+    const users = await User.findAll();
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "가입된 회원이 없습니다." });
+    }
+
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "회원 목록 불러오기 실패", error });
+  }
+});
+
 module.exports = router;
