@@ -20,10 +20,8 @@ const UserList = () => {
         const response = await axios.get("http://localhost:5000/auth/users", {
           headers: { Authorization: `${token}` },
         });
-        console.log(response.data);
         setUsers(response.data);
       } catch (error) {
-        console.error(error);
         setError("회원 목록을 불러올 수 없습니다.");
       }
     };

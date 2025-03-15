@@ -18,8 +18,7 @@ const Register = () => {
       navigate("/login"); 
 
     } catch (err) {
-      console.log(err);
-      setError(err.response?.data?.message || "회원가입 실패");
+      setError(err.response?.data?.error.message || "회원가입 실패");
     }
   };
 
