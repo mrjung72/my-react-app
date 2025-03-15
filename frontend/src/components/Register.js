@@ -6,14 +6,12 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  console.log("email=", email);
-  console.log("password=", password);
   const navigate = useNavigate(); // 🔹 useNavigate() 추가
   
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/auth/register", { email, password });
+      const response = await axios.post("http://localhost:5000/auth/register", { email, password });
       alert("회원가입 성공!");
       navigate("/login"); 
 
