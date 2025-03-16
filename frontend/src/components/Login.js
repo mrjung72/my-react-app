@@ -19,7 +19,7 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:5000/auth/login", { email: inputEmail, password });
       saveEmail(inputEmail); // 로그인한 이메일 저장
-      login(response.data.token); // 로그인 상태 업데이트
+      login(response.data.token, response.data.isAdmin); // 로그인 상태 업데이트
 
 
        // 🔹 로그인 성공 후 회원정보 페이지로 이동

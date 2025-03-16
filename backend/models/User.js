@@ -1,28 +1,25 @@
-const pool = require("../config/db");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const User = {
-  create: async (email, password) => {
-    const [result] = await pool.query(
-      "INSERT INTO users (email, password) VALUES (?, ?)",
-      [email, password]
-    );
-    return result.insertId;
+const User = sequelize.define("User", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
-
-  findByEmail: async (email) => {
-    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email.email]);
-    return rows[0];
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
   },
-
-  findById: async (id) => {
-    const [rows] = await pool.query("SELECT id, email, createdAt FROM users WHERE id = ?", [id]);
-    return rows[0];
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-
-  findAll: async () => {
-    const [rows] = await pool.query("SELECT id, email, createdAt FROM users");
-    return rows;
-  }
-};
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false, // 기본값은 일반 사용자
+  },
+});
 
 module.exports = User;

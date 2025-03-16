@@ -7,13 +7,14 @@ const Register = () => {
   const { saveEmail } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate(); // 🔹 useNavigate() 추가
   
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", { email, password });
+      const response = await axios.post("http://localhost:5000/auth/register", { email, password, isAdmin });
       saveEmail(email); // 가입한 이메일 저장
       
       navigate("/login"); 
