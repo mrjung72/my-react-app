@@ -12,7 +12,7 @@ const Navbar = () => {
       {isAuthenticated ? (
         <>
           <Link to="/profile">내 정보</Link> | 
-          <button onClick={() => { logout(); window.location.href = "/"; }}>로그아웃</button>
+          <button onClick={() => { logout(); window.location.href = "/login"; }}>로그아웃</button>
         </>
       ) : (
         <>

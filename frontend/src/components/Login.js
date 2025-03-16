@@ -5,20 +5,23 @@ import { useAuth } from "../context/AuthContext"; // AuthContext 가져오기
 
 const Login = () => {
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
+  const { email } = useAuth(); // 저장된 이메일 가져오기
+  const { saveEmail } = useAuth();
+  const [inputEmail, setInputEmail] = useState(email); // 초기값 설정
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate(); // 🔹 useNavigate() 추가
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", { email, password });
+      const response = await axios.post("http://localhost:5000/auth/login", { email: inputEmail, password });
+      saveEmail(inputEmail); // 로그인한 이메일 저장
       alert("로그인 성공!");
       login(response.data.token); // 로그인 상태 업데이트
-      console.log(response.data.token);
+      
 
        // 🔹 로그인 성공 후 회원정보 페이지로 이동
        navigate("/profile"); 
@@ -32,11 +35,24 @@ const Login = () => {
     <div>
       <h2>로그인</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleLogin}>
-        이메일 : <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required /><br/>
-        비밀번호 : <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">로그인</button>
-      </form>
+    <form onSubmit={handleLogin}>
+      <input
+        type="email"
+        placeholder="이메일"
+        value={inputEmail}
+        onChange={(e) => setInputEmail(e.target.value)}
+        required
+      />
+      <br/>
+      <input
+        type="password"
+        placeholder="비밀번호"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <button type="submit">로그인</button>
+    </form>
     </div>
   );
 };
