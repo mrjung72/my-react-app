@@ -22,8 +22,8 @@ const Login = () => {
       login(response.data.token, response.data.isAdmin); // 로그인 상태 업데이트
 
 
-       // 🔹 로그인 성공 후 회원정보 페이지로 이동
-       navigate("/profile"); 
+       // 🔹 로그인 성공 후 홈 페이지로 이동
+       navigate("/"); 
 
     } catch (err) {
       setError(err.response?.data?.message || "로그인 실패");
