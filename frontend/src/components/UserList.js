@@ -27,7 +27,6 @@ const UserList = () => {
       await axios.delete(`http://localhost:5000/auth/users/${userId}`, {
         headers: { Authorization: `${localStorage.getItem("token")}` }
       });
-      alert("회원이 삭제되었습니다.");
       window.location.reload();
     } catch (error) {
       alert("삭제 실패: " + error.response.data.message);
