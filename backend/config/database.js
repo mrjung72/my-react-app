@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize("my_react_database", "react", "1111", {
-  host: "localhost",
+  host: "myproj.kr",
   dialect: "mariadb",  // MariaDB 사용
 });
 

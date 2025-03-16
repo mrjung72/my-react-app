@@ -14,7 +14,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:5000/auth/profile", {
+        const response = await axios.get("http://myproj.kr:5000/auth/profile", {
           headers: { Authorization: `${token}` },
         });
         setUser(response.data);
