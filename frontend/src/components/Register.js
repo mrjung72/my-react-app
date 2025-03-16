@@ -14,13 +14,13 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", { email, password, isAdmin });
+      await axios.post("http://localhost:5000/auth/register", { email, password, isAdmin });
       saveEmail(email); // 가입한 이메일 저장
       
       navigate("/login"); 
 
     } catch (err) {
-      setError(err.response?.data?.error.message || "회원가입 실패");
+      setError(err.response?.data?.error.errors[0].message || "회원가입 실패");
     }
   };
 
@@ -30,7 +30,8 @@ const Register = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleRegister}>
         이메일 : <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required /><br/>
-        비밀번호 : <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        비밀번호 : <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required /><br/>
+        관리자 : <input type="isAdmin" placeholder="관리자" value={isAdmin} onChange={(e) => setIsAdmin(e.target.value)} required />
         <button type="submit">회원가입</button>
       </form>
     </div>

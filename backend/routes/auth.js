@@ -79,4 +79,47 @@ router.get("/users", authMiddleware, async (req, res) => {
   }
 });
 
+
+// 회원 정보 수정
+router.put("/users/:id", authMiddleware, async (req, res) => {
+  const { id } = req.params;
+  const { email, password, isAdmin } = req.body;
+
+  try {
+    const user = await User.findByPk(id);
+    if (!user) return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+
+    // 현재 로그인한 사용자가 본인이거나 관리자만 수정 가능
+    if (req.user.id !== user.id && !req.user.isAdmin) {
+      return res.status(403).json({ message: "권한이 없습니다." });
+    }
+
+    await user.update({ email, password, isAdmin });
+    res.json({ message: "회원 정보가 수정되었습니다." });
+  } catch (error) {
+    res.status(500).json({ message: "서버 오류 발생" });
+  }
+});
+
+
+// 회원 삭제 (관리자만 가능)
+router.delete("/users/:id", authMiddleware, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!req.user.isAdmin) {
+      return res.status(403).json({ message: "관리자만 삭제할 수 있습니다." });
+    }
+
+    const user = await User.findByPk(id);
+    if (!user) return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+
+    await user.destroy();
+    res.json({ message: "회원이 삭제되었습니다." });
+  } catch (error) {
+    res.status(500).json({ message: "서버 오류 발생" });
+  }
+});
+
+
 module.exports = router;

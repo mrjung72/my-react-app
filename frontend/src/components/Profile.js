@@ -35,7 +35,7 @@ const Profile = () => {
         <div>
           <p><strong>회원ID:</strong> {user.id}</p>
           <p><strong>이메일:</strong> {user.email}</p>
-          <p><strong>관리자:</strong> {new Boolean(user.isAdmin).toString()}</p>
+          <p><strong>관리자:</strong> {user.isAdmin.toString()}</p>
           <p><strong>가입 날짜:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
         </div>
       ) : (

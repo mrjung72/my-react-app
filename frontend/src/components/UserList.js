@@ -20,12 +20,30 @@ const UserList = () => {
     return <h2>접근 권한이 없습니다.</h2>;
   }
 
+  const handleDelete = async (userId) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+  
+    try {
+      await axios.delete(`http://localhost:5000/auth/users/${userId}`, {
+        headers: { Authorization: `${localStorage.getItem("token")}` }
+      });
+      alert("회원이 삭제되었습니다.");
+      window.location.reload();
+    } catch (error) {
+      alert("삭제 실패: " + error.response.data.message);
+    }
+  };
+  
   return (
     <div>
       <h2>회원 목록</h2>
       <ul>
         {users.map(user => (
-          <li key={user.id}>{user.email} - {user.isAdmin ? "관리자" : "일반회원"}</li>
+          <li key={user.id}>
+              {user.email} 
+            - {user.isAdmin ? "관리자" : "일반회원"} 
+            - {isAdmin && <button onClick={() => handleDelete(user.id)}>삭제</button>}
+          </li>
         ))}
       </ul>
     </div>
