@@ -8,7 +8,7 @@ const EditProfile = ({ userId, isAdmin }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    axios.get(`http://myproj.kr:5000/auth/users/${userId}`)
+    axios.get(`http://localhost:5000/auth/users/${userId}`)
       .then((res) => {
         setEmail(res.data.email);
         setIsAdmin(res.data.isAdmin); // 관리자 여부 추가
@@ -18,7 +18,7 @@ const EditProfile = ({ userId, isAdmin }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://myproj.kr:5000/auth/users/${userId}`, { email, password, isAdmin: isadmin }, {
+      await axios.put(`http://localhost:5000/auth/users/${userId}`, { email, password, isAdmin: isadmin }, {
         headers: { Authorization: `${localStorage.getItem("token")}` }
       });
       setMessage("회원 정보가 수정되었습니다.");

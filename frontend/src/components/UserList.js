@@ -8,7 +8,7 @@ const UserList = () => {
 
   useEffect(() => {
     if (isAdmin) {
-      axios.get("http://myproj.kr:5000/auth/users", {
+      axios.get("http://localhost:5000/auth/users", {
         headers: { Authorization: `${localStorage.getItem("token")}` },
       })
       .then(response => setUsers(response.data))
@@ -24,7 +24,7 @@ const UserList = () => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
   
     try {
-      await axios.delete(`http://myproj.kr:5000/auth/users/${userId}`, {
+      await axios.delete(`http://localhost:5000/auth/users/${userId}`, {
         headers: { Authorization: `${localStorage.getItem("token")}` }
       });
       window.location.reload();

@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://myproj.kr:5000/auth/login", { email: inputEmail, password });
+      const response = await axios.post("http://localhost:5000/auth/login", { email: inputEmail, password });
       saveEmail(inputEmail); // 로그인한 이메일 저장
       login(response.data.token, response.data.isAdmin); // 로그인 상태 업데이트
 

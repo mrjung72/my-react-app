@@ -14,7 +14,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://myproj.kr:5000/auth/register", { email, password, isAdmin });
+      await axios.post("http://localhost:5000/auth/register", { email, password, isAdmin });
       saveEmail(email); // 가입한 이메일 저장
       
       navigate("/login"); 
